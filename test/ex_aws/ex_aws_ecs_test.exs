@@ -111,6 +111,19 @@ defmodule ExAws.ECSTest do
     assert req.headers == expected_headers("DescribeContainerInstances")
   end
 
+  test "describe_container_instances with cluster option" do
+    req = ExAws.ECS.describe_container_instances(["id1", "id2"], %{cluster: "my-cluster"})
+
+    assert req.data == %{
+             "Action" => "DescribeContainerInstances",
+             "Version" => "2014-11-13",
+             "containerInstances" => ["id1", "id2"],
+             "cluster" => "my-cluster"
+           }
+
+    assert req.headers == expected_headers("DescribeContainerInstances")
+  end
+
   test "describe_services" do
     req = ExAws.ECS.describe_services(["id1", "id2"])
 

@@ -71,11 +71,13 @@ defmodule ExAws.ECS do
     request(%{"Action" => "DescribeClusters"})
   end
 
-  def describe_container_instances(container_instances) do
-    request(%{
+  def describe_container_instances(container_instances, opts \\ []) do
+    %{
       "Action" => "DescribeContainerInstances",
       "containerInstances" => container_instances
-    })
+    }
+    |> merge_opts(opts)
+    |> request()
   end
 
   def describe_services(services, opts \\ []) do
